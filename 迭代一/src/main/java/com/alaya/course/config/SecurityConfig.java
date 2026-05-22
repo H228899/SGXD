@@ -1,5 +1,6 @@
 package com.alaya.course.config;
 
+import com.alaya.course.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,22 +17,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
-                .authorizeHttpRequests(auth ->
- auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/register", "/login", "/css/**", "/h2-console/**").permitAll()
                         .requestMatchers("/student/**").hasAuthority("STUDENT")
                         .requestMatchers("/teacher/**").hasAuthority("TEACHER")
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(form ->
- form
+                .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
-                .logout(logout ->
- logout
+                .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 );
