@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>选课结果</title>
+    <style>
+        .result-box {
+            margin: 50px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .success { color: #42b983; }
+        .fail { color: #f56c6c; }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2 th:text="${msg}" th:class="${msg.contains('成功')} ? 'success' : 'fail'"></h2>
+        <a href=" ">返回课程列表</a >
+    </div>
+</body>
+</html>
