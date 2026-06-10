@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>选课列表</title>
+    <style>
+        .course-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            width: 350px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .enroll-btn {
+            background: #409eff;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>本学期可选课程</h1>
+    <div class="course-card">
+        <h3>Java程序设计</h3>
+        <p>学分：3 | 授课教师：张教授</p >
+        <button class="enroll-btn" onclick="submitEnroll(1)">立即选课</button>
+    </div>
+    <div class="course-card">
+        <h3>数据结构与算法</h3>
+        <p>学分：4 | 授课教师：李教授</p >
+        <button class="enroll-btn" onclick="submitEnroll(2)">立即选课</button>
+    </div>
+    <script>
+        function submitEnroll(courseId) {
+            fetch('/enroll', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'courseId=' + courseId
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                // 选完课可以刷新页面或更新按钮状态
+                if(message.includes('成功')) {
+                    event.target.innerText = '已选课';
+                    event.target.disabled = true;
+                }
+            })
+            .catch(error => alert('操作失败，请稍后再试'));
+        }
+    </script>
+</body>
+</html>

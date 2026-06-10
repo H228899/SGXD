@@ -1,0 +1,8 @@
+course-list.html
+<div>
+    <a th:href="@{/courses(page=${page.number-1}, size=${page.size}, keyword=${keyword})}"
+       th:disabled="${page.first}">上一页</a>
+    <span>[[${page.number+1}]] / [[${page.totalPages}]]</span>
+    <a th:href="@{/courses(page=${page.number+1}, size=${page.size}, keyword=${keyword})}"
+       th:disabled="${page.last}">下一页</a>
+</div>
